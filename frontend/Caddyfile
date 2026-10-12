@@ -19,6 +19,13 @@
 
     encode gzip
 
+    # .mjs isn't in every server's default MIME table, and a module Worker
+    # (MapLibre GL's tile-processing worker) refuses to execute if its
+    # Content-Type isn't a JS type — set it explicitly rather than trust
+    # Caddy's built-in guess.
+    @mjs path *.mjs
+    header @mjs Content-Type "text/javascript; charset=utf-8"
+
     file_server
 
     try_files {path} /index.html
