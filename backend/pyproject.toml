@@ -1,0 +1,59 @@
+[project]
+name = "weather-truck-backend"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=6.1.2",
+    "django-cors-headers>=4.9.0",
+    "django-environ>=0.14.0",
+    "djangorestframework>=3.18.3",
+    "gunicorn>=26.2.0",
+    "httpx>=0.28.1",
+    "polyline>=2.0.4",
+    "shapely>=2.2.0",
+    "whitenoise>=6.12.0",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.0",
+    "pytest>=9.1.1",
+    "pytest-django>=4.14.0",
+    "respx>=0.23.1",
+    "ruff>=0.17.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.dev"
+python_files = ["test_*.py"]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.12"
+exclude = ["tests/"]
+
+[[tool.mypy.overrides]]
+module = "core.*"
+strict = true
+
+[[tool.mypy.overrides]]
+# Neither ships inline type stubs (no py.typed marker); this is the
+# standard mypy config for a project without django-stubs/djangorestframework-stubs.
+module = ["django.*", "rest_framework.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# Without django-stubs/djangorestframework-stubs, Serializer/APIView/
+# AppConfig are typed as Any, so every subclass trips "cannot subclass X
+# (has type Any)" — not a real type-safety gap in this code. Functions
+# here still require full annotations like everywhere else in the project.
+module = "apps.*"
+disable_error_code = ["misc"]

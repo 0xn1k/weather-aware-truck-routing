@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens — exact values decoded from the approved mockup
+   (frontend/README.md Section 9.2). Light is the :root default; dark
+   overrides under [data-theme="dark"], toggled by state/uiStore.ts. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f3f4f6;
+  --ink: #0f172a;
+  --muted: #5b6474;
+  --line: #e4e7ec;
+  --line-2: #eef0f3;
+  --accent: #2563eb;
+  --accent-tint: #eaf1fe;
+  --on-accent: #ffffff;
+  --btn: #0f172a;
+  --on-btn: #ffffff;
+  --rec-bg: #e6f4ec;
+  --rec-ink: #166534;
+  --land: #f2f3f0;
+  --casing: #ffffff;
+  --route-other: #6b7280;
+  --route-other-casing: #d1d5db;
+  --input-bg: #ffffff;
+  --input-border: #d5d9e0;
+  --seg-bg: #f1f3f5;
+  --seg-on: #ffffff;
+  --chip: #f1f3f5;
+  --shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+  --track: #e9ecef;
+  --bad: #b42318;
+
+  /* Risk levels: Low, Moderate, High, Severe, No travel — fill + tint pairs */
+  --risk-0: #22a05a;
+  --risk-0-tint: #e4f4ea;
+  --risk-1: #e8b21f;
+  --risk-1-tint: #fbf0cf;
+  --risk-2: #f07c1f;
+  --risk-2-tint: #fde6d2;
+  --risk-3: #d93a2e;
+  --risk-3-tint: #fadcd9;
+  --risk-4: #6d35a8;
+  --risk-4-tint: #efe5f8;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b0f14;
+  --surface: #12171e;
+  --surface-2: #1a2029;
+  --ink: #e8ecf1;
+  --muted: #9aa4b2;
+  --line: #262d38;
+  --line-2: #1f2630;
+  --accent: #60a5fa;
+  --accent-tint: #16243a;
+  --on-accent: #0b0f14;
+  --btn: #e8ecf1;
+  --on-btn: #0b0f14;
+  --rec-bg: #10291b;
+  --rec-ink: #7dd3a0;
+  --land: #151b22;
+  --casing: #0b0f14;
+  --route-other: #aab3c0;
+  --route-other-casing: #2a323d;
+  --input-bg: #0b0f14;
+  --input-border: #323b47;
+  --seg-bg: #0b0f14;
+  --seg-on: #262d38;
+  --chip: #222a35;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  --track: #1f2630;
+  --bad: #ff8a80;
+
+  --risk-0: #43c07a;
+  --risk-0-tint: #16301f;
+  --risk-1: #f2c230;
+  --risk-1-tint: #3a3114;
+  --risk-2: #f59a45;
+  --risk-2-tint: #3d2714;
+  --risk-3: #f0574b;
+  --risk-3-tint: #3f1c1a;
+  --risk-4: #b27fe0;
+  --risk-4-tint: #2c1d3d;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Geist", system-ui, -apple-system, sans-serif;
+  color-scheme: light dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Theme-aware placeholder text — browsers otherwise pick their own grey,
+   which doesn't reliably match var(--muted) in dark mode. */
+input::placeholder {
+  color: var(--muted);
+  opacity: 1; /* Firefox applies its own opacity to placeholder text by default */
+}
+
+/* MapLibre's own CSS (imported in main.tsx) sets a default font and
+   control styling — inherit our font instead for visual consistency. */
+.maplibregl-map {
+  font-family: inherit;
+}
+
+/* CheckpointPopup.tsx themes its own text via var(--ink)/var(--muted), but
+   the popup chrome itself (background, drop-shadow triangle "tip") comes
+   from maplibre-gl.css and is hardcoded white — in dark mode that left
+   light-on-white text with barely any contrast. Themed to match. */
+.maplibregl-popup-content {
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: var(--surface);
+}
+.maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: var(--surface);
+}
+.maplibregl-popup-anchor-left .maplibregl-popup-tip {
+  border-right-color: var(--surface);
+}
+.maplibregl-popup-anchor-right .maplibregl-popup-tip {
+  border-left-color: var(--surface);
+}

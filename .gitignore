@@ -1,0 +1,19 @@
+# Backend (Python / uv / Django)
+backend/.venv/
+backend/.env
+backend/db.sqlite3
+backend/staticfiles/
+backend/.ruff_cache/
+backend/.mypy_cache/
+backend/.pytest_cache/
+**/__pycache__/
+*.pyc
+
+# Frontend (Node / Vite)
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# OS / editor
+.DS_Store
+*.swp

@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: weather-truck-backend
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: "pip install uv && uv sync --no-dev && uv run python manage.py collectstatic --noinput"
+    startCommand: "uv run gunicorn config.wsgi:application --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.prod
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: .onrender.com
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false # set to the Vercel frontend URL after its first deploy
+      - key: STADIA_API_KEY
+        sync: false # set after creating a Stadia Maps account (README.md Section 13)
+      - key: ROUTING_PROVIDER
+        value: valhalla
+      - key: ROUTING_PRIMARY_URL
+        value: https://api.stadiamaps.com
+      - key: ROUTING_FALLBACK_URL
+        value: https://valhalla1.openstreetmap.de
+      - key: WEATHER_PROVIDER
+        value: open_meteo
+      - key: GEOCODER_URL
+        value: https://photon.komoot.io
+      - key: ASSUMED_EMPTY_TRUCK_LB
+        value: "35000"
