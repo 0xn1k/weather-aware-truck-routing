@@ -92,8 +92,8 @@ export function WakingUpBanner() {
   return (
     <Banner
       variant="waking_up"
-      title="Waking up the server…"
-      description="The free host sleeps when idle, so the first request takes about a minute. Your trip is kept."
+      title="Connecting to the server…"
+      description="The first request after a fresh deploy can take a moment to respond. Your trip is kept."
     />
   );
 }
