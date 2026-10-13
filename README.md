@@ -1,4 +1,4 @@
-# 🌦️ Weather-Aware Truck Routing
+# 🌦️ Weather-Aware Truck Routing Assesment
 
 A full-stack app for **truck drivers** that turns a trip (origin, destination,
 departure time, load weight) into **3 routed options** scored for weather risk
